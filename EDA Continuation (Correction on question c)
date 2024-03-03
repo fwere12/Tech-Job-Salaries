@@ -1,0 +1,24 @@
+df_filtered = data.dropna(subset=['salary_in_usd'])
+
+# Spliting the dataset into full-time and part-time employees based on employment_type
+full_time_employees = df_filtered[df_filtered['employment_type'] == 'Full-time']
+part_time_employees = df_filtered[df_filtered['employment_type'] == 'Part-time']
+
+# Calculating the average salary for full-time and part-time employees
+avg_salary_full_time = full_time_employees['salary_in_usd'].mean()
+avg_salary_part_time = part_time_employees['salary_in_usd'].mean()
+
+# Plotting the average salaries
+plt.figure(figsize=(8, 6))
+employment_types = ['Full-time', 'Part-time']
+average_salaries = [avg_salary_full_time, avg_salary_part_time]
+plt.bar(employment_types, average_salaries, color=['blue', 'orange'])
+
+# Adding labels to the bars
+for i in range(len(employment_types)):
+    plt.text(employment_types[i], average_salaries[i], f'${average_salaries[i]:.2f}', ha='center', va='bottom')
+
+plt.xlabel('Employment Type')
+plt.ylabel('Average Salary (USD)')
+plt.title('Average Salary Comparison between Full-time and Part-time Employees')
+plt.show()
